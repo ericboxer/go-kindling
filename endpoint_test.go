@@ -1,8 +1,13 @@
 package kindling
 
 import (
+	"fmt"
 	"testing"
 )
+
+func consoleLog(message string) {
+	fmt.Println(message)
+}
 
 func TestNewEndpoint(t *testing.T) {
 	tests := []struct {
@@ -16,7 +21,7 @@ func TestNewEndpoint(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		e := NewEndpoint(test.level, test.isStructured)
+		e := NewEndpoint(test.level, test.isStructured, consoleLog)
 		if e.GetLogLevel() != test.level {
 			t.Errorf("Expected log level to be %d, but got %d", test.level, e.GetLogLevel())
 		}
@@ -38,7 +43,7 @@ func TestGetLogLevel(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		e := BaseEndpoint{logLevel: test.level}
+		e := Endpoint{logLevel: test.level}
 		if e.GetLogLevel() != test.level {
 			t.Errorf("Expected log level to be %d, but got %d", test.level, e.GetLogLevel())
 		}
@@ -54,7 +59,7 @@ func TestIsStructured(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		e := BaseEndpoint{isStructured: test.isStructured}
+		e := Endpoint{isStructured: test.isStructured}
 		if e.IsStructured() != test.isStructured {
 			t.Errorf("Expected isStructured to be %v, but got %v", test.isStructured, e.IsStructured())
 		}

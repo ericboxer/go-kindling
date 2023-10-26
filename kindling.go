@@ -10,7 +10,7 @@ import (
 // Logger manages structured logging with support for multiple logging endpoints and log levels.
 type Logger struct {
 	level     int
-	Endpoints []Endpoint
+	Endpoints []EndpointInterface
 }
 
 type logMessage struct {
@@ -28,12 +28,12 @@ func NewLogger(level int) *Logger {
 }
 
 // RegisterEndpoint adds a new logging endpoint to the Logger.
-func (l *Logger) RegisterEndpoint(endpoint Endpoint) {
+func (l *Logger) RegisterEndpoint(endpoint EndpointInterface) {
 	l.Endpoints = append(l.Endpoints, endpoint)
 }
 
 // UnregisterEndpoint removes a logging endpoint from the Logger.
-func (l *Logger) UnregisterEndpoint(endpoint Endpoint) {
+func (l *Logger) UnregisterEndpoint(endpoint EndpointInterface) {
 	for i, e := range l.Endpoints {
 		if e == endpoint {
 			l.Endpoints = append(l.Endpoints[:i], l.Endpoints[i+1:]...)
