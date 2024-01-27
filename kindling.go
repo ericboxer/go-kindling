@@ -13,7 +13,7 @@ type Logger struct {
 	Endpoints []EndpointInterface
 }
 
-type logMessage struct {
+type LogMessage struct {
 	Time    string `json:"time"`
 	Message string `json:"message"`
 	Level   string `json:"level"`
@@ -79,7 +79,7 @@ func (l *Logger) log(level int, message string, trace ...bool) {
 		traceInfo = getTrace()
 	}
 
-	lm := logMessage{
+	lm := LogMessage{
 		Time:    lmTime,
 		Message: message,
 		Level:   lmLevel,
